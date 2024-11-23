@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Du Lịch Việt - Admin</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="javascript:void(0);" id="loginLink" onclick="handleLogout()">Đăng xuất</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Danh sách đăng ký tour -->
+    <section id="registeredTours">
+        <h2>Danh Sách Người Đăng Ký Tour</h2>
+        <table id="tourList">
+            <thead>
+                <tr>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày khởi hành</th>
+                    <th>Số lượng người</th>
+                    <th>Yêu cầu đặc biệt</th>
+                    <th>Phương tiện đi lại</th> <!-- Thêm cột phương tiện -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dữ liệu sẽ được thêm vào đây qua JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <script>
+        // Lấy danh sách người đăng ký từ localStorage
+        window.onload = function() {
+            var registeredTours = JSON.parse(localStorage.getItem('registeredTours')) || [];
+            var tableBody = document.getElementById('tourList').getElementsByTagName('tbody')[0];
+
+            // Nếu có thông tin đăng ký, hiển thị chúng trong bảng
+            if (registeredTours.length > 0) {
+                registeredTours.forEach(function(tour) {
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = tour.fullName;
+                    row.insertCell(1).textContent = tour.email;
+                    row.insertCell(2).textContent = tour.phone;
+                    row.insertCell(3).textContent = tour.tourDate;
+                    row.insertCell(4).textContent = tour.numberOfPeople;
+                    row.insertCell(5).textContent = tour.specialRequest || 'Không có';
+
+                    // Hiển thị phương tiện đã chọn
+                    var transportText = '';
+                    if (tour.transport == "0") {
+                        transportText = 'Máy bay';
+                    } else if (tour.transport == "1") {
+                        transportText = 'Tàu hỏa';
+                    } else if (tour.transport == "2") {
+                        transportText = 'Xe khách';
+                    } else if (tour.transport == "3") {
+                        transportText = 'Ô tô thuê riêng';
+                    }
+                    row.insertCell(6).textContent = transportText; // Thêm thông tin phương tiện vào bảng
+                });
+            } else {
+                // Nếu không có người đăng ký
+                var row = tableBody.insertRow();
+                var cell = row.insertCell(0);
+                cell.colSpan = 7; // Sửa lại để có 7 cột
+                cell.textContent = "Chưa có ai đăng ký tour.";
+            }
+        };
+
+        // Hàm xử lý khi người dùng bấm "Đăng xuất"
+        function handleLogout() {
+            // Xóa thông tin người dùng khỏi sessionStorage
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('role');
+
+            // Chuyển hướng về trang index.html
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

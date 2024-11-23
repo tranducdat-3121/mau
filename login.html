@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Du Lịch Việt</h1>
+        </div>
+    </header>
+
+    <section>
+        <h2>Đăng nhập</h2>
+        <form id="loginForm">
+            <label for="username">Tên đăng nhập:</label>
+            <input type="text" id="username" name="username" required><br><br>
+
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" name="password" required><br><br>
+
+            <button type="submit">Đăng nhập</button>
+        </form>
+
+        <p>Chưa có tài khoản? <a href="signup.html">Đăng ký ngay</a></p>
+    </section>
+
+    <script>
+        // Kiểm tra nếu người dùng đã đăng nhập và chuyển hướng
+        if (sessionStorage.getItem('username')) {
+            window.location.href = 'index.html';  // Chuyển hướng về trang chủ
+        }
+
+        // Xử lý khi form được gửi
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngừng việc gửi form mặc định
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Kiểm tra nếu người dùng nhập "admin" cho tên đăng nhập và mật khẩu
+            if (username === 'admin' && password === 'admin') {
+                // Nếu đúng, chuyển hướng tới trang admin
+                sessionStorage.setItem('username', 'admin');
+                sessionStorage.setItem('role', 'admin');
+                window.location.href = 'admin.html'; // Chuyển hướng tới trang quản trị
+            } else {
+                // Lấy thông tin người dùng đã đăng ký từ localStorage
+                var user = JSON.parse(localStorage.getItem('user'));
+
+                // Kiểm tra tên đăng nhập và mật khẩu (so với dữ liệu trong localStorage)
+                if (user && user.username === username && user.password === password) {
+                    // Lưu tên đăng nhập và vai trò vào sessionStorage
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('role', user.role);
+
+                    // Chuyển hướng đến trang chủ (index.html)
+                    window.location.href = 'index.html';
+                } else {
+                    alert('Tên đăng nhập hoặc mật khẩu không đúng!');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

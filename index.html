@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Website Bán Tour Du Lịch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Du Lịch Việt</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="login.html" id="loginLink">Đăng nhập</a></li>
+                <li><a href="signup.html" id="registerLink">Đăng ký</a></li>
+                <li id="logoutLink" style="display: none;"><a href="javascript:void(0);" onclick="handleLogout()">Đăng xuất</a></li>
+                <li><a href="tour.html" id="toursLink">Các Tour</a></li>
+                <li id="adminLink" style="display: none;"><a href="admin.html">Trang Quản Trị</a></li>
+            </ul>
+        </nav>
+    </header>
+
+       <!-- Hiển thị tên người dùng -->
+    <section id="welcome">
+        <h2>Chào mừng, <span id="username"></span>!</h2>
+    </section>
+
+    <!-- Banner -->
+    <section id="banner">
+        <img src="cli/banner.jpg" alt="Banner Du Lịch" class="banner-img">
+        <div class="banner-content">
+            <h2>Chào mừng đến với Du Lịch Việt</h2>
+            <p>Trải nghiệm những chuyến đi tuyệt vời với các tour du lịch trong và ngoài nước!</p>
+        </div>
+    </section>
+
+    <!-- Phần giới thiệu -->
+    <section id="about">
+        <h2>Về chúng tôi</h2>
+        <p>
+            Du Lịch Việt là một trong những đơn vị hàng đầu cung cấp các dịch vụ lữ hành. Với sứ mệnh mang lại trải nghiệm tuyệt vời 
+            và đáng nhớ, chúng tôi cam kết mang đến những tour du lịch chất lượng với chi phí hợp lý. Đội ngũ nhân viên tận tâm cùng
+            các đối tác uy tín sẽ đồng hành cùng bạn trong hành trình khám phá vẻ đẹp của những nơi được đánh giá là đáng đi nhất trong những dịp lễ.
+        </p>
+    </section>
+
+    <!-- Admin - Danh sách người đăng ký -->
+    <section id="adminSection" style="display: none;">
+        <h2>Danh Sách Người Đăng Ký Tour</h2>
+        <table id="tourList">
+            <thead>
+                <tr>
+                    <th>Họ và tên</th>
+                    <th>Email</th>
+                    <th>Số điện thoại</th>
+                    <th>Ngày khởi hành</th>
+                    <th>Số lượng người</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dữ liệu sẽ được thêm vào đây qua JavaScript -->
+            </tbody>
+        </table>
+    </section>
+
+    <script>
+        // Kiểm tra nếu người dùng đã đăng nhập và hiển thị tên
+        var username = sessionStorage.getItem('username');
+        var role = sessionStorage.getItem('role'); // Lấy vai trò người dùng (admin hoặc user)
+
+        if (username) {
+            document.getElementById('username').textContent = username;
+
+            // Ẩn liên kết "Đăng nhập" và "Đăng ký" nếu người dùng đã đăng nhập
+            document.getElementById('logoutLink').style.display = 'inline'; // Hiển thị nút Đăng xuất
+            document.getElementById('loginLink').style.display = 'none';
+            document.getElementById('registerLink').style.display = 'none';
+
+            // Hiển thị trang quản trị nếu người dùng là admin
+            if (role === 'admin') {
+                document.getElementById('adminLink').style.display = 'inline'; // Hiển thị link Admin
+                document.getElementById('adminSection').style.display = 'block'; // Hiển thị danh sách đăng ký
+            }
+        } else {
+            document.getElementById('username').textContent = "Khách";
+        }
+
+        // Hàm xử lý khi bấm vào "Đăng nhập"
+        function handleLoginClick(event) {
+            // Ngừng hành động mặc định (chuyển hướng)
+            event.preventDefault();
+            
+            // Nếu người dùng chưa đăng nhập, chuyển hướng tới trang đăng nhập
+            if (!sessionStorage.getItem('username')) {
+                window.location.href = 'login.html';  // Chuyển hướng tới trang đăng nhập
+            }
+        }
+        // Hàm xử lý khi người dùng bấm "Đăng xuất"
+        function handleLogout() {
+            // Xóa thông tin người dùng khỏi sessionStorage
+            sessionStorage.removeItem('username');
+            sessionStorage.removeItem('role');
+
+            // Chuyển hướng về trang index.html
+            window.location.href = 'index.html';
+        }
+
+        // Hiển thị danh sách đăng ký tour cho admin
+        window.onload = function() {
+            var registeredTours = JSON.parse(localStorage.getItem('registeredTours')) || [];
+            var tableBody = document.getElementById('tourList').getElementsByTagName('tbody')[0];
+
+            // Nếu có thông tin đăng ký, hiển thị chúng trong bảng
+            if (registeredTours.length > 0) {
+                registeredTours.forEach(function(tour) {
+                    var row = tableBody.insertRow();
+                    row.insertCell(0).textContent = tour.fullName;
+                    row.insertCell(1).textContent = tour.email;
+                    row.insertCell(2).textContent = tour.phone;
+                    row.insertCell(3).textContent = tour.tourDate;
+                    row.insertCell(4).textContent = tour.numberOfPeople;
+                    row.insertCell(5).textContent = tour.specialRequest || 'Không có';
+                });
+            } else {
+                // Nếu không có người đăng ký
+                var row = tableBody.insertRow();
+                var cell = row.insertCell(0);
+                cell.colSpan = 6;
+                cell.textContent = "Chưa có ai đăng ký tour.";
+            }
+        };
+    </script>
+</body>
+</html>

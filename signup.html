@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng Ký Tài Khoản</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Du Lịch Việt</h1>
+        </div>
+    </header>
+
+    <!-- Form Đăng Ký -->
+    <section id="signup">
+        <h2>Đăng Ký Tài Khoản</h2>
+        <form id="signupForm">
+            <label for="signupUsername">Tên đăng nhập:</label>
+            <input type="text" id="signupUsername" name="username" required><br><br>
+
+            <label for="signupPassword">Mật khẩu:</label>
+            <input type="password" id="signupPassword" name="password" required><br><br>
+
+            <label for="role">Vai trò:</label>
+            <select id="role" name="role" required>
+                <option value="user">Người dùng</option>
+            </select><br><br>
+
+            <button type="submit">Đăng ký</button>
+        </form>
+    </section>
+
+    <script>
+        // Xử lý khi người dùng gửi form đăng ký
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngừng việc gửi form mặc định
+
+            var username = document.getElementById('signupUsername').value;
+            var password = document.getElementById('signupPassword').value;
+            var role = document.getElementById('role').value;
+
+            if (username && password && role) {
+                // Lưu thông tin đăng ký vào localStorage (hoặc sessionStorage nếu cần)
+                var user = {
+                    username: username,
+                    password: password,
+                    role: role
+                };
+
+                // Lưu tài khoản đăng ký vào localStorage
+                localStorage.setItem('user', JSON.stringify(user));
+
+                // Thông báo đăng ký thành công
+                alert('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
+
+                // Chuyển hướng tới trang đăng nhập
+                window.location.href = 'login.html';
+            } else {
+                alert('Vui lòng điền đầy đủ thông tin!');
+            }
+        });
+    </script>
+</body>
+</html>

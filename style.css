@@ -1,0 +1,492 @@
+/* Reset các thuộc tính CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo h1 {
+    font-size: 2rem;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Đăng nhập */
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f4f4f4;
+}
+
+.login-container h2 {
+    text-align: center;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+#banner {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.banner-img {
+    width: 100%;
+    height: auto;
+}
+
+.banner-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#about {
+    padding: 20px;
+    text-align: center;
+    background-color: #f8f9fa;
+    margin: 20px 0;
+}
+
+#about h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#about p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Các Tour */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  header .logo h1 {
+    margin: 0;
+  }
+  
+  nav ul.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    text-align: center;
+  }
+  
+  nav ul.nav-menu li {
+    display: inline;
+    margin: 0 15px;
+  }
+  
+  nav ul.nav-menu li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  #tours {
+    padding: 20px;
+  }
+  
+  #tours h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .tour-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* Chia thành 3 cột */
+    gap: 20px;  /* Khoảng cách giữa các item */
+    padding: 0 20px;
+  }
+  
+  .tour-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .tour-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .tour-card h3 {
+    margin: 10px;
+    font-size: 18px;
+  }
+  
+  .tour-card p {
+    margin: 10px;
+    color: #555;
+  }
+  
+  .btn-book {
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .btn-book:hover {
+    background-color: #000000;
+  }
+  #tour-detail {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tour-detail-container img {
+    max-width: 100%;
+    border-radius: 16px; /* Bo góc ảnh */
+    object-fit: cover;
+}
+
+.tour-detail-info {
+    max-width: 200%;
+    padding: 80 80px;
+}
+
+.tour-detail-info h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #0056b3;
+}
+
+.tour-detail-info p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.tour-detail-info h3 {
+    font-size: 20px;
+    color: #d9534f;
+    margin-bottom: 20px;
+}
+
+.tour-detail-info .btn-book {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tour-detail-info .btn-book:hover {
+    background-color: #218838;
+}
+
+  /* Tổng quát */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    color: #333;
+}
+
+/* Header */
+header {
+    background-color: #000000;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+/* Container cảm ơn */
+.thank-you-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.thank-you-container img {
+    width: 100%;
+    height: auto;
+    border-bottom: 2px solid #000000;
+}
+
+.thank-you-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.thank-you-content h2 {
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.thank-you-content p {
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.thank-you-content a {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #000000;
+    color: rgb(244, 221, 221);
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.thank-you-content a:hover {
+    background-color: #000000;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    background-color: #d0c3c3;
+    color: #666;
+}
+/* Form đặt vé */
+#booking {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#booking h2 {
+    font-size: 24px;
+    color: #02060a;
+    margin-bottom: 20px;
+}
+
+#booking form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#booking form input,
+#booking form textarea,
+#booking form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#booking form button {
+    background-color: #04070a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#booking form button:hover {
+    background-color: #38495a;
+}
+
+/* Danh sách đăng ký tour */
+section#registeredTours {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+section#registeredTours h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #000000;
+    text-align: center;
+}
+
+/* Bảng danh sách */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+table thead {
+    background-color: #000000;
+    color: white;
+}
+
+table thead th {
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+table tbody td {
+    padding: 10px;
+}
+
+/* Trường hợp không có dữ liệu */
+table tbody td[colspan] {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav ul {
+        flex-direction: column;
+    }
+
+    header nav ul li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    section#registeredTours {
+        padding: 15px;
+    }
+
+    table thead {
+        font-size: 0.8rem;
+    }
+
+    table tbody td {
+        font-size: 0.85rem;
+    }
+}
+.tour-container {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+.tour-header {
+    text-align: center;
+}
+.itinerary {
+    margin-top: 20px;
+}
+.day {
+    margin-bottom: 20px;
+}
+.day-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+.activities {
+    margin-left: 20px;
+}
+.activity-item {
+    margin-bottom: 10px;
+}

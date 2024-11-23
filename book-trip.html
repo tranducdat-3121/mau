@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đặt Vé Tour</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Du Lịch Việt</h1>
+            <li><a href="index.html" id="toursLink">Các Tour</a></li>
+
+        </div>
+    </header>
+
+    <!-- Form Đặt Vé -->
+    <section id="booking">
+        <h2>Điền Thông Tin Đặt Vé</h2>
+        <form id="bookingForm">
+            <label for="fullName">Họ và tên:</label>
+            <input type="text" id="fullName" name="fullName" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Số điện thoại:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+
+            <label for="tourDate">Ngày khởi hành:</label>
+            <input type="date" id="tourDate" name="tourDate" required><br><br>
+
+            <label for="numberOfPeople">Số lượng người:</label>
+            <input type="number" id="numberOfPeople" name="numberOfPeople" required><br><br>
+
+            <label for="specialRequest">Yêu cầu đặc biệt:</label><br>
+            <textarea id="specialRequest" name="specialRequest" rows="4" cols="50"></textarea><br><br>
+
+            <button type="submit">Xác nhận Đặt Vé</button>
+        </form>
+    </section>
+
+    <script>
+        // Xử lý form khi người dùng gửi thông tin
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngừng việc gửi form mặc định
+
+            // Lấy thông tin từ form
+            var fullName = document.getElementById('fullName').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var tourDate = document.getElementById('tourDate').value;
+            var numberOfPeople = document.getElementById('numberOfPeople').value;
+            var specialRequest = document.getElementById('specialRequest').value;
+
+            // Kiểm tra nếu thông tin hợp lệ
+            if (fullName && email && phone && tourDate && numberOfPeople) {
+                alert('Cảm ơn ' + fullName + '! Bạn đã đặt vé thành công.');
+
+                // Chuyển hướng hoặc làm gì đó sau khi đặt vé thành công
+                window.location.href = 'thanks.html';  // Chuyển hướng về trang chủ (hoặc trang xác nhận)
+            } else {
+                alert('Vui lòng điền đầy đủ thông tin!');
+            }
+        });
+    </script>
+</body>
+</html>

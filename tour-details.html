@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chi Tiết Tour</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Du Lịch Việt</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Trang chủ</a></li>
+                <li><a href="login.html" id="loginLink">Đăng nhập</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Chi tiết Tour -->
+    <section id="tour-detail">
+        <div class="tour-detail-container">
+            <img id="tour-image" alt="Tour">
+            <div class="tour-detail-info">
+                <h2 id="tour-title"></h2>
+                <p id="tour-description"></p>
+                <h3 id="tour-price"></h3>
+                
+                <!-- Dropdown chọn phương tiện đi lại -->
+                <label for="transport">Chọn phương tiện đi lại:</label>
+                <select id="transport">
+                    <option value="0">Máy bay</option>
+                    <option value="1">Tàu hỏa</option>
+                    <option value="2">Xe khách</option>
+                    <option value="3">Ô tô thuê riêng</option>
+                </select>
+
+                <button class="btn-book" id="bookNowBtn">Đặt vé ngay</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Đặt Vé (ẩn mặc định) -->
+    <section id="booking" style="display: none;">
+        <h2>Điền Thông Tin Đặt Vé</h2>
+        <form id="bookingForm">
+            <label for="fullName">Họ và tên:</label>
+            <input type="text" id="fullName" name="fullName" required><br><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Số điện thoại:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+
+            <label for="tourDate">Ngày khởi hành:</label>
+            <input type="date" id="tourDate" name="tourDate" required><br><br>
+
+            <label for="numberOfPeople">Số lượng người:</label>
+            <input type="number" id="numberOfPeople" name="numberOfPeople" required><br><br>
+
+            <button type="submit">Xác nhận Đặt Vé</button>
+        </form>
+    </section>
+
+    <script>
+        // Danh sách thông tin các tour
+        const tours = {
+            "1": {
+                title: "Tour Hồ Chí Minh - Phú Quốc",
+                description: "Tour Du lịch Phú Quốc, tham quan và tắm biễn Bãi Sao, là bãi biển đẹp nhất Phú Quốc. Ghé làng chài Hàm Ninh, vườn tiêu Phú Quốc, dạo chợ đêm Dinh Cậu, ẩm thực xứ đảo Phú Quốc về đêm, viếng Dinh Bà, tham quan Cơ sở nước mắm Phú Quốc – Lò chế biến rượu sim rừng Phú Quốc. Thắng cảnh Dinh CậuKhám phá vẻ đẹp thiên nhiên miền Bắc với lịch trình 3 ngày 2 đêm. Tour bao gồm các điểm đến nổi tiếng như Fansipan, thung lũng Mường Hoa...",
+                price: "2,500,000 VND",
+                image: "cli/Phú Quốc.jpg",
+                basePrice: 2500000 // giá cơ bản
+            },
+            "2": {
+                title: "Tour Hồ Chí Minh - Cần Thơ",
+                description: "Tour Hồ Chí Minh - Cần Thơ là một hành trình khám phá vẻ đẹp miền Tây Nam Bộ của Việt Nam, với những trải nghiệm độc đáo và thú vị. Tour này đưa du khách từ TP. Hồ Chí Minh đến Cần Thơ, thủ phủ của Đồng bằng sông Cửu Long, nổi tiếng với những con kênh rạch chằng chịt, chợ nổi, và các làng nghề truyền thống.",
+                price: "3,000,000 VND",
+                image: "cli/CanTho.jpg",
+                basePrice: 3000000
+            },
+            "3": {
+                title: "Tour Hồ Chí Minh - Hạ Long",
+                description: "Tour Hồ Chí Minh - Hạ Long là hành trình lý tưởng để bạn khám phá một trong những di sản thiên nhiên thế giới được UNESCO công nhận. Vịnh Hạ Long nổi bật với hàng ngàn đảo đá vôi lớn nhỏ, hang động kỳ thú và nước biển trong xanh. Đây là điểm đến tuyệt vời cho những ai yêu thích thiên nhiên, tìm kiếm sự yên bình và muốn tận hưởng kỳ nghỉ đầy thú vị.",
+                price: "3,000,000 VND",
+                image: "cli/HLong.jpg",
+                basePrice: 3000000
+            },
+            "4": {
+                title: "Tour Hà Nội - Hà Giang",
+                description: "Tour Hà Nội - Hà Giang là chuyến hành trình lý tưởng để bạn khám phá vẻ đẹp hùng vĩ của vùng cao nguyên đá phía Bắc Việt Nam. Hà Giang không chỉ nổi tiếng với những cung đường đèo uốn lượn mà còn với văn hóa bản địa đa dạng và cảnh sắc thiên nhiên hoang sơ. Đây là cơ hội tuyệt vời để bạn hòa mình vào cuộc sống bình dị của đồng bào dân tộc, tận hưởng không khí trong lành và chiêm ngưỡng những kỳ quan tự nhiên độc đáo.",
+                price: "3,000,000 VND",
+                image: "cli/HGiang.jpg",
+                basePrice: 3000000
+            },
+            "5": {
+                title: "Tour Hà Nội - Côn Đảo",
+                description: "Tour Hà Nội - Côn Đảo là hành trình hấp dẫn dành cho những ai yêu thích vẻ đẹp hoang sơ, thanh bình và muốn tìm hiểu về lịch sử hào hùng của vùng đất thiêng liêng này. Côn Đảo không chỉ nổi tiếng với những bãi biển tuyệt đẹp mà còn là nơi gắn liền với các di tích lịch sử, đặc biệt là trong thời kỳ kháng chiến.",
+                price: "3,000,000 VND",
+                image: "cli/Côn Đảo.jpeg",
+                basePrice: 3000000
+            },
+            "6": {
+                title: "Tour Hà Nội - Nghệ An",
+                description: "Tour Hà Nội - Nghệ An là hành trình về miền Trung, quê hương của Chủ tịch Hồ Chí Minh. Tour mang đến những trải nghiệm phong phú, từ khám phá lịch sử, văn hóa đến tận hưởng cảnh đẹp thiên nhiên. Đây là cơ hội tuyệt vời để du khách tìm hiểu về vùng đất giàu truyền thống và di sản.",
+                price: "3,000,000 VND",
+                image: "cli/Nghệ An.jpg",
+                basePrice: 3000000
+            },
+            "7": {
+                title: "Tour Hồ Chí Minh - Đà Lạt",
+                description: "Tour Hồ Chí Minh - Đà Lạt là hành trình lý tưởng để khám phá vẻ đẹp thơ mộng của thành phố ngàn hoa. Chuyến đi mang đến cơ hội tận hưởng không khí trong lành, khí hậu mát mẻ, và cảnh quan thiên nhiên tuyệt đẹp của Đà Lạt.",
+                price: "3,000,000 VND",
+                image: "cli/Đà Lạt.jpg",
+                basePrice: 3000000
+            },
+            "8": {
+                title: "Tour Hồ Chí Minh - Kiên Giang",
+                description: "Tour Hồ Chí Minh - Kiên Giang là một hành trình khám phá vùng đất tươi đẹp của miền Tây Nam Bộ, nổi bật với các thắng cảnh thiên nhiên tuyệt vời, các di tích lịch sử, và nền văn hóa đặc sắc của dân tộc. Đến Kiên Giang, du khách sẽ được trải nghiệm vẻ đẹp hoang sơ của đảo Phú Quốc, khám phá các làng chài truyền thống, tận hưởng bãi biển trong xanh và thưởng thức các món hải sản tươi ngon.",
+                price: "3,000,000 VND",
+                image: "cli/Kiên Giang1.jpg",
+                basePrice: 3000000
+            },
+            "9": {
+                title: "Tour Hồ Chí Minh - Phan Thiết",
+                description: "Tour Hồ Chí Minh - Phan Thiết là một tour du lịch khám phá vẻ đẹp của thành phố biển Phan Thiết, nổi bật với những bãi biển dài và cát trắng, những đồi cát đỏ, các làng chài truyền thống và các di tích lịch sử.",
+                price: "3,000,000 VND",
+                image: "cli/PThiet.jpg",
+                basePrice: 3000000
+            },
+            "10": {
+                title: "Tour Hà Nội - Sapa",
+                description: "Tour Hà Nội - Sapa là một hành trình du lịch khám phá vẻ đẹp của vùng núi Tây Bắc Việt Nam, với cảnh quan thiên nhiên hùng vĩ, những bản làng truyền thống, và nền văn hóa đặc sắc của các dân tộc thiểu số.",
+                price: "3,000,000 VND",
+                image: "cli/Sapa.jpg",
+                basePrice: 3000000
+            },
+            "11": {
+                title: "Tour Hồ Chí Minh - Hà Nội",
+                description: "Tour Hồ Chí Minh - Hà Nội là hành trình du lịch đặc sắc, giúp du khách khám phá vẻ đẹp lịch sử, văn hóa, và thiên nhiên của thủ đô Hà Nội, một trong những thành phố lâu đời và mang đậm dấu ấn lịch sử của Việt Nam. Tour này thích hợp cho những ai muốn trải nghiệm sự kết hợp giữa các điểm tham quan văn hóa, di tích lịch sử và các thắng cảnh nổi tiếng.",
+                price: "3,000,000 VND",
+                image: "cli/HaNoi.jpg",
+                basePrice: 3000000
+            },
+            "12": {
+                title: "Tour Hà Nội - Huế",
+                description: "Tour Hà Nội - Huế là một hành trình du lịch khám phá vẻ đẹp của Huế - thành phố di sản văn hóa thế giới, nổi bật với những di tích lịch sử, văn hóa đặc sắc và cảnh quan thiên nhiên tuyệt vời. Đây là chuyến đi lý tưởng cho những ai yêu thích khám phá nền văn hóa, lịch sử phong phú của Việt Nam.",
+                price: "3,000,000 VND",
+                image: "cli/hue.jpg",
+                basePrice: 3000000
+            },
+            // Thêm các tour khác tương tự...
+        };
+
+        // Lấy ID từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const tourId = urlParams.get("id");
+
+        // Hiển thị thông tin tour tương ứng
+        if (tours[tourId]) {
+            const tour = tours[tourId];
+            document.getElementById("tour-title").innerText = tour.title;
+            document.getElementById("tour-description").innerText = tour.description;
+            document.getElementById("tour-price").innerText = `Giá: ${tour.price}`;
+            document.getElementById("tour-image").src = tour.image;
+
+            // Lắng nghe sự kiện thay đổi phương tiện
+            document.getElementById("transport").addEventListener("change", function() {
+                let transportCost = 0;
+                const transportType = this.value;
+
+                // Thêm giá tiền dựa trên phương tiện
+                if (transportType == "0") {
+                    transportCost = 2000000; // Máy bay
+                } else if (transportType == "1") {
+                    transportCost = 1000000; // Tàu hỏa
+                } else if (transportType == "2") {
+                    transportCost = 800000; // Xe khách
+                } else if (transportType == "3") {
+                    transportCost = 1500000; // Ô tô thuê riêng
+                }
+
+                // Tính tổng giá
+                const totalPrice = tour.basePrice + transportCost;
+                document.getElementById("tour-price").innerText = `Giá: ${totalPrice.toLocaleString()} VND`;
+            });
+            
+        } else {
+            document.getElementById("tour-detail").innerHTML = "<h2>Tour không tồn tại</h2>";
+        }
+
+        // Xử lý nút "Đặt vé ngay"
+        document.getElementById("bookNowBtn").addEventListener("click", function () {
+            document.getElementById("tour-detail").style.display = "none";
+            document.getElementById("booking").style.display = "block";
+        });
+
+        // Xử lý form đặt vé
+        document.getElementById("bookingForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Lấy thông tin từ form
+            const fullName = document.getElementById("fullName").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("phone").value;
+            const tourDate = document.getElementById("tourDate").value;
+            const numberOfPeople = document.getElementById("numberOfPeople").value;
+            const transport = document.getElementById("transport").value;
+            const transportCost = transport === "0" ? 500000 : (transport === "1" ? 200000 : (transport === "2" ? 100000 : 1000000));
+            const totalPrice = tours[tourId].basePrice + transportCost;
+
+            // Tạo đối tượng thông tin đặt vé
+            const bookingInfo = {
+                fullName: fullName,
+                email: email,
+                phone: phone,
+                tourDate: tourDate,
+                numberOfPeople: numberOfPeople,
+                transport: transport,
+                totalPrice: totalPrice
+            };
+
+            // Lưu vào localStorage
+            let registeredTours = JSON.parse(localStorage.getItem('registeredTours')) || [];
+            registeredTours.push(bookingInfo);
+            localStorage.setItem('registeredTours', JSON.stringify(registeredTours));
+
+            // Thông báo và chuyển hướng
+            alert("Cảm ơn bạn đã đặt vé!");
+            window.location.href = "thanks.html";
+        });
+
+        // Kiểm tra nếu người dùng đã đăng nhập và ẩn "Đăng nhập" nếu đã đăng nhập
+        window.onload = function() {
+            var username = sessionStorage.getItem('username');
+            if (username) {
+                document.getElementById('loginLink').style.display = 'none';  // Ẩn "Đăng nhập" nếu người dùng đã đăng nhập
+            }
+        };
+    </script>
+</body> 
+</html>
