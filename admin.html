@@ -71,8 +71,7 @@
                     row.insertCell(2).textContent = tour.phone;
                     row.insertCell(3).textContent = tour.tourDate;
                     row.insertCell(4).textContent = tour.numberOfPeople;
-                    row.insertCell(5).textContent = transportText;
-                    row.insertCell(6).textContent = tour.specialRequest || 'Không có';
+                    row.insertCell(5).textContent = tour.specialRequest || 'Không có';
 
                     var transportText = '';
                     if (tour.transport == "0") {
@@ -86,6 +85,7 @@
                     } else if (tour.transport == "4") {
                         transportText = 'Tàu thủy';
                     }
+                    row.insertCell(5).textContent = transportText;
                 });
             } else {
                 // Nếu không có người đăng ký
