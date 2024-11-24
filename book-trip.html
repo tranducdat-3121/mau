@@ -8,16 +8,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="logo">
             <h1>Du Lịch Việt</h1>
             <li><a href="index.html" id="toursLink">Các Tour</a></li>
-
         </div>
     </header>
 
-    <!-- Form Đặt Vé -->
     <section id="booking">
         <h2>Điền Thông Tin Đặt Vé</h2>
         <form id="bookingForm">
@@ -59,9 +56,7 @@
             // Kiểm tra nếu thông tin hợp lệ
             if (fullName && email && phone && tourDate && numberOfPeople) {
                 alert('Cảm ơn ' + fullName + '! Bạn đã đặt vé thành công.');
-
-                // Chuyển hướng hoặc làm gì đó sau khi đặt vé thành công
-                window.location.href = 'thanks.html';  // Chuyển hướng về trang chủ (hoặc trang xác nhận)
+                window.location.href = 'thanks.html';
             } else {
                 alert('Vui lòng điền đầy đủ thông tin!');
             }
