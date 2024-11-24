@@ -8,12 +8,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <h1>Du Lịch Việt</h1>
     </header>
 
-    <!-- Thank You Section -->
     <div class="thank-you-container">
         <img src="camon" alt="Cảm ơn quý khách">
         <div class="thank-you-content">
@@ -24,7 +22,56 @@
         </div>
     </div>
 
-    <!-- Footer -->
+    <section id="contact">
+        <h2>Liên hệ với chúng tôi</h2>
+        <p>
+            Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi qua thông tin dưới đây:
+        </p>
+        <div class="contact-details">
+            <p><strong>Địa chỉ:</strong>ADV-I.201</p>
+            <p><strong>Email:</strong> <a href="mailto:dulichviet2511@gmail.com">dulichviet2511@gmail.com</a></p>
+        </div>
+        <h3>Hoặc gửi tin nhắn cho chúng tôi:</h3>
+        <form id="contactForm">
+            <label for="name">Họ và tên:</label>
+            <input type="text" id="name" name="name" placeholder="Nhập tên của bạn" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
+
+            <label for="message">Thông điệp:</label>
+            <textarea id="message" name="message" placeholder="Nhập thông điệp của bạn" rows="5" required></textarea>
+
+            <button type="submit">Gửi</button>
+        </form>
+    </section>
+    <script>
+        // Gửi form
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Lấy thông tin từ form
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var message = document.getElementById('message').value;
+
+    // Tạo một đối tượng phản hồi
+    var feedback = { name, email, message };
+
+    // Lấy dữ liệu phản hồi đã lưu trong localStorage
+    var feedbacks = JSON.parse(localStorage.getItem('feedbacks')) || [];
+
+    // Thêm phản hồi mới vào mảng
+    feedbacks.push(feedback);
+
+    // Lưu lại mảng phản hồi vào localStorage
+    localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+
+    alert("Cảm ơn bạn đã gửi phản hồi!");
+    window.location.href = 'index.html';
+});
+    </script>
+
     <footer>
         &copy; 2024 Du Lịch Việt. Tất cả các quyền được bảo lưu.
     </footer>
