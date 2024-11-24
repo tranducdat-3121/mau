@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="logo">
             <h1>Du Lịch Việt</h1>
@@ -25,12 +24,10 @@
         </nav>
     </header>
 
-       <!-- Hiển thị tên người dùng -->
     <section id="welcome">
         <h2>Chào mừng, <span id="username"></span>!</h2>
     </section>
 
-    <!-- Banner -->
     <section id="banner">
         <img src="banner" alt="Banner Du Lịch" class="banner-img">
         <div class="banner-content">
@@ -39,7 +36,6 @@
         </div>
     </section>
 
-    <!-- Phần giới thiệu -->
     <section id="about">
         <h2>Về chúng tôi</h2>
         <p>
@@ -48,56 +44,48 @@
             các đối tác uy tín sẽ đồng hành cùng bạn trong hành trình khám phá vẻ đẹp của những nơi được đánh giá là đáng đi nhất trong những dịp lễ.
         </p>
     </section>
-
-    <!-- Admin - Danh sách người đăng ký -->
-    <section id="adminSection" style="display: none;">
-        <h2>Danh Sách Người Đăng Ký Tour</h2>
-        <table id="tourList">
-            <thead>
-                <tr>
-                    <th>Họ và tên</th>
-                    <th>Email</th>
-                    <th>Số điện thoại</th>
-                    <th>Ngày khởi hành</th>
-                    <th>Số lượng người</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Dữ liệu sẽ được thêm vào đây qua JavaScript -->
-            </tbody>
-        </table>
+ 
+    <section id="contact">
+        <h2>Liên hệ với chúng tôi</h2>
+        <p>
+            Nếu bạn có bất kỳ câu hỏi nào hoặc cần hỗ trợ, vui lòng liên hệ với chúng tôi qua thông tin dưới đây:
+        </p>
+        <div class="contact-details">
+            <p><strong>Địa chỉ:</strong>ADV-I.201</p>
+            <p><strong>Email:</strong> <a href="mailto:dulichviet2511@gmail.com">dulichviet2511@gmail.com</a></p>
+        </div>
     </section>
+
+    <footer>
+        &copy; 2024 Du Lịch Việt. Tất cả các quyền được bảo lưu.
+    </footer>
 
     <script>
         // Kiểm tra nếu người dùng đã đăng nhập và hiển thị tên
         var username = sessionStorage.getItem('username');
-        var role = sessionStorage.getItem('role'); // Lấy vai trò người dùng (admin hoặc user)
+        var role = sessionStorage.getItem('role');
 
         if (username) {
             document.getElementById('username').textContent = username;
 
-            // Ẩn liên kết "Đăng nhập" và "Đăng ký" nếu người dùng đã đăng nhập
-            document.getElementById('logoutLink').style.display = 'inline'; // Hiển thị nút Đăng xuất
+            // Ẩn liên kết đăng nhập và đăng ký nếu người dùng đã đăng nhập
+            document.getElementById('logoutLink').style.display = 'inline';
             document.getElementById('loginLink').style.display = 'none';
             document.getElementById('registerLink').style.display = 'none';
 
-            // Hiển thị trang quản trị nếu người dùng là admin
             if (role === 'admin') {
-                document.getElementById('adminLink').style.display = 'inline'; // Hiển thị link Admin
+                document.getElementById('adminLink').style.display = 'inline';
                 document.getElementById('adminSection').style.display = 'block'; // Hiển thị danh sách đăng ký
             }
         } else {
             document.getElementById('username').textContent = "Khách";
         }
-
-        // Hàm xử lý khi bấm vào "Đăng nhập"
         function handleLoginClick(event) {
             // Ngừng hành động mặc định (chuyển hướng)
             event.preventDefault();
-            
             // Nếu người dùng chưa đăng nhập, chuyển hướng tới trang đăng nhập
             if (!sessionStorage.getItem('username')) {
-                window.location.href = 'login.html';  // Chuyển hướng tới trang đăng nhập
+                window.location.href = 'login.html';
             }
         }
         // Hàm xử lý khi người dùng bấm "Đăng xuất"
@@ -105,35 +93,8 @@
             // Xóa thông tin người dùng khỏi sessionStorage
             sessionStorage.removeItem('username');
             sessionStorage.removeItem('role');
-
-            // Chuyển hướng về trang index.html
             window.location.href = 'index.html';
         }
-
-        // Hiển thị danh sách đăng ký tour cho admin
-        window.onload = function() {
-            var registeredTours = JSON.parse(localStorage.getItem('registeredTours')) || [];
-            var tableBody = document.getElementById('tourList').getElementsByTagName('tbody')[0];
-
-            // Nếu có thông tin đăng ký, hiển thị chúng trong bảng
-            if (registeredTours.length > 0) {
-                registeredTours.forEach(function(tour) {
-                    var row = tableBody.insertRow();
-                    row.insertCell(0).textContent = tour.fullName;
-                    row.insertCell(1).textContent = tour.email;
-                    row.insertCell(2).textContent = tour.phone;
-                    row.insertCell(3).textContent = tour.tourDate;
-                    row.insertCell(4).textContent = tour.numberOfPeople;
-                    row.insertCell(5).textContent = tour.specialRequest || 'Không có';
-                });
-            } else {
-                // Nếu không có người đăng ký
-                var row = tableBody.insertRow();
-                var cell = row.insertCell(0);
-                cell.colSpan = 6;
-                cell.textContent = "Chưa có ai đăng ký tour.";
-            }
-        };
     </script>
 </body>
 </html>
