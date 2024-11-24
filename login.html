@@ -25,14 +25,13 @@
 
             <button type="submit">Đăng nhập</button>
         </form>
-
         <p>Chưa có tài khoản? <a href="signup.html">Đăng ký ngay</a></p>
     </section>
 
     <script>
         // Kiểm tra nếu người dùng đã đăng nhập và chuyển hướng
         if (sessionStorage.getItem('username')) {
-            window.location.href = 'index.html';  // Chuyển hướng về trang chủ
+            window.location.href = 'index.html';
         }
 
         // Xử lý khi form được gửi
@@ -42,9 +41,9 @@
             var username = document.getElementById('username').value;
             var password = document.getElementById('password').value;
 
-            // Kiểm tra nếu người dùng nhập "admin" cho tên đăng nhập và mật khẩu
+            // Kiểm tra nếu người dùng nhập admin cho tên đăng nhập và mật khẩu
             if (username === 'admin' && password === 'admin') {
-                // Nếu đúng, chuyển hướng tới trang admin
+                // Nếu đúng thì chuyển hướng tới trang admin
                 sessionStorage.setItem('username', 'admin');
                 sessionStorage.setItem('role', 'admin');
                 window.location.href = 'admin.html'; // Chuyển hướng tới trang quản trị
@@ -57,8 +56,6 @@
                     // Lưu tên đăng nhập và vai trò vào sessionStorage
                     sessionStorage.setItem('username', username);
                     sessionStorage.setItem('role', user.role);
-
-                    // Chuyển hướng đến trang chủ (index.html)
                     window.location.href = 'index.html';
                 } else {
                     alert('Tên đăng nhập hoặc mật khẩu không đúng!');
